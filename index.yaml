@@ -1,0 +1,84 @@
+apiVersion: v1
+entries:
+  dctna:
+  - apiVersion: v2
+    appVersion: 0.1.6
+    created: "2022-11-24T10:25:50.704205714Z"
+    description: A Helm chart for DCTNA.
+    digest: 58aa3903409ab3d5004a23e5c634c6a04c262cfabb1d9f9df568deb0251e2718
+    home: https://github.com/philips-labs/dct-notary-admin
+    keywords:
+    - notary
+    - docker
+    - tuf
+    - dctna
+    - code-signing
+    - image-signing
+    kubeVersion: '>=1.15.0-0'
+    maintainers:
+    - email: marco.franssen@philips.com
+      name: Marco Franssen
+    name: dctna
+    sources:
+    - https://github.com/philips-labs/dct-notary-admin
+    - https://github.com/philips-labs/dctna-helm
+    type: application
+    urls:
+    - https://github.com/developer-guy/philips-labs-helm-charts/releases/download/dctna-0.2.2/dctna-0.2.2.tgz
+    version: 0.2.2
+  spire:
+  - apiVersion: v2
+    appVersion: 1.5.1
+    created: "2022-11-24T10:25:50.863105587Z"
+    description: 'A Helm chart for deploying spire-server and spire-agent.  > :warning:
+      Please note this chart requires Projected Service Account Tokens which has to
+      be enabled on your k8s api server.  > :warning: Minimum Spire version is `v1.0.2`.  To
+      enable Projected Service Account Tokens on Docker for Mac/Windows run the following
+      command to SSH into the Docker Desktop K8s VM.  ```bash docker run -it --privileged
+      --pid=host debian nsenter -t 1 -m -u -n -i sh ```  Then add the following to
+      `/etc/kubernetes/manifests/kube-apiserver.yaml`  ```yaml spec:   containers:     -
+      command:         - kube-apiserver         - --api-audiences=api,spire-server         -
+      --service-account-issuer=api,spire-agent         - --service-account-key-file=/run/config/pki/sa.pub         -
+      --service-account-signing-key-file=/run/config/pki/sa.key ``` '
+    digest: c5d8afe7e716027611f9ee2b0b5e4e4dfbc0688bc7512fa4e930769e8c713344
+    home: https://github.com/philips-labs/helm-charts/charts/spire
+    keywords:
+    - spiffe
+    - spire
+    - spire-server
+    - spire-agent
+    - oidc
+    kubeVersion: '>=1.21.0-0'
+    maintainers:
+    - email: marco.franssen@philips.com
+      name: marcofranssen
+      url: https://marcofranssen.nl
+    name: spire
+    sources:
+    - https://github.com/philips-labs/helm-charts/charts/spire
+    type: application
+    urls:
+    - https://github.com/developer-guy/philips-labs-helm-charts/releases/download/spire-0.7.2/spire-0.7.2.tgz
+    version: 0.7.2
+  spire-client-example:
+  - apiVersion: v2
+    appVersion: 1.5.1
+    created: "2022-11-24T10:25:51.026536471Z"
+    deprecated: true
+    description: A Helm chart for deploying a spire workload as example.
+    digest: 7c2776fff33904b53e3924c702f9d6c74c58db284f9c6ac646e8bad058b0e3e4
+    home: https://github.com/philips-labs/helm-charts/charts/spire-client-example
+    keywords:
+    - spiffe
+    - spire
+    - client
+    - example
+    kubeVersion: '>=1.19.0-0'
+    name: spire-client-example
+    sources:
+    - https://github.com/philips-labs/helm-charts/charts/spire-client-example
+    type: application
+    urls:
+    - https://github.com/developer-guy/philips-labs-helm-charts/releases/download/spire-client-example-0.3.0/spire-client-example-0.3.0.tgz
+    version: 0.3.0
+generated: "2022-11-24T10:25:51.026540971Z"
