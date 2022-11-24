@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: write # to push chart release and create a release (helm/chart-releaser-action)
       packages: write # needed for ghcr access
+      id-token: write # needed for keyless signing
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -44,14 +45,15 @@ jobs:
         env:
           CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
     
-      - name: Push charts to GHCR
+      - name: Push charts to GHCR and sign
+        env:
+          COSIGN_EXPERIMENTAL: 1
         # when filling gaps with previously released charts, cr would create
         # nothing in .cr-release-packages/, and the original globbing character
         # would be preserved, causing a non-zero exit. Set nullglob to fix this
         run: |
           shopt -s nullglob
           for pkg in .cr-release-packages/*; do
-            echo "working with: $pkg"
             if [ -z "${pkg:-}" ]; then
               break
             fi
@@ -59,5 +61,5 @@ jobs:
             file=${pkg##*/}       # extracts file name from full directory path
             name=${file%-*}       # extracts chart name from filename
             digest=$(awk -F "[, ]+" '/Digest/{print $NF}' < .digest)
-            echo $digest
+            cosign sign ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts/"${name}"@"${digest}"
           done
